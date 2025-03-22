@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Frenzy - Team Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #5f0a0a, #220000);
+            padding: 15px 20px;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .logo img {
+            height: 28px;
+            margin-right: 8px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .language-selector:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .team-container {
+            padding: 90px 20px 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 2px solid #FFD700;
+            margin-bottom: 30px;
+        }
+
+        .team-card h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .team-card h1 span {
+            color: #FFD700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .player-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .player-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #FFD700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .player-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .success-message {
+            font-size: 18px;
+            color: #00a651;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .score-prediction {
+            font-size: 20px;
+            color: #e63946;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .share-section {
+            margin-bottom: 20px;
+        }
+
+        .share-btn {
+            padding: 12px 25px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .share-btn:hover {
+            background-color: #1ebe52;
+            transform: translateY(-2px);
+        }
+
+        .like-counter {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .like-counter span {
+            color: #e63946;
+            font-weight: bold;
+        }
+
+        .join-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .join-btn:hover {
+            background-color: #e68a00;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #00a651;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #008d45;
+            transform: translateY(-2px);
+        }
+
+        .prize-table {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .prize-table th, .prize-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .prize-table th {
+            background-color: #e63946;
+            color: white;
+            font-weight: bold;
+        }
+
+        .prize-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .prize-table tr:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-section">
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <img src="https://cdnflags.dream11.com/d11-static-pages/images/dream11LogoWhite.webp" alt="Fantasy Frenzy Logo">
+            </div>
+        </div>
+        <div class="language-selector">
+            <span>Hindi</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </nav>
+
+    <div class="team-container">
+        <div class="team-card">
+            <h1><span id="display-name"></span> ki <span>Champion Team</span></h1>
+            <div class="player-icons" id="player-icons">
+                <!-- Team icon will be populated here -->
+            </div>
+            <p class="success-message">Team lock ho gayi, bhai! Ab jeetne ka time hai!</p>
+            <p class="score-prediction">Predicted IPL 2025 Score: <span id="display-score"></span> runs</p>
+            <div class="share-section">
+                <button class="share-btn" id="share-btn">WhatsApp pe Share Karo!</button>
+                <p class="like-counter">Likes: <span id="like-count">0</span></p>
+            </div>
+            <a href="team-selection.html" class="join-btn">Contest Mein Join Karo</a>
+            <a href="index.html" class="back-btn">Wapas Jao</a>
+        </div>
+
+        <table class="prize-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Inam</th>
+                    <th>Vijeta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pehla</td>
+                    <td>₹3,00,000</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Doosra</td>
+                    <td>₹50,000</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Teesra</td>
+                    <td>₹11,000</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Chautha</td>
+                    <td>₹5,000</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>5 se 5004</td>
+                    <td>₹51</td>
+                    <td>5,000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const teamData = [
+            { id: "1", image: "img/csk.jpg", name: "CSK" },
+            { id: "2", image: "img/mi.jpg", name: "MI" },
+            { id: "3", image: "img/rcb.jpg", name: "RCB" },
+            { id: "4", image: "img/dc.jpg", name: "DC" },
+            { id: "5", image: "img/kkr.jpg", name: "KKR" },
+            { id: "6", image: "img/PBKS.jpg", name: "PBKS" },
+            { id: "7", image: "img/rr.jpg", name: "RR" },
+            { id: "8", image: "img/SRH.jpg", name: "SRH" },
+            { id: "9", image: "img/gt.jpg", name: "GT" }
+        ];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
+        const teamId = urlParams.get('team') || localStorage.getItem('selectedTeam');
+        const scorePrediction = urlParams.get('score') || localStorage.getItem('scorePrediction') || 'N/A';
+
+        document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
+        document.getElementById('display-score').textContent = scorePrediction;
+
+        const playerIconsContainer = document.getElementById('player-icons');
+        if (teamId) {
+            const team = teamData.find(t => t.id === teamId);
+            if (team) {
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'player-icon';
+                iconDiv.innerHTML = `<img src="${team.image}" alt="${team.name}" title="${team.name}">`;
+                playerIconsContainer.appendChild(iconDiv);
+            }
+        }
+
+        // Like counter logic
+        let likeCount = parseInt(localStorage.getItem(`likes_${teamId}_${submittedName}`)) || 0;
+        document.getElementById('like-count').textContent = likeCount;
+
+        // Share button logic with WhatsApp redirect
+        document.getElementById('share-btn').addEventListener('click', () => {
+            const team = teamData.find(t => t.id === teamId);
+            const shareUrl = `${window.location.origin}/team-details.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}`;
+            const shareText = `${decodeURIComponent(submittedName)} ne ${team.name} ko chuna hai IPL 2025 ke liye aur predict kiya hai ${scorePrediction} runs! Check karo: ${shareUrl}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            window.location.href = whatsappUrl;
+        });
+
+        // Simulate likes increasing (for demo)
+        setInterval(() => {
+            if (Math.random() > 0.8) {
+                likeCount++;
+                document.getElementById('like-count').textContent = likeCount;
+                localStorage.setItem(`likes_${teamId}_${submittedName}`, likeCount);
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
