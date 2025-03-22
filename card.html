@@ -261,7 +261,7 @@
                 <button class="share-btn" id="share-btn">WhatsApp pe Share Karo!</button>
                 <p class="like-counter">Likes: <span id="like-count">0</span></p>
             </div>
-            <a href="team-selection.html" class="join-btn">Contest Mein Join Karo</a>
+            <a href="index.html" class="join-btn">Contest Mein Join Karo</a>
             <a href="index.html" class="back-btn">Wapas Jao</a>
         </div>
 
@@ -342,7 +342,7 @@
         // Share button logic with WhatsApp redirect
         document.getElementById('share-btn').addEventListener('click', () => {
             const team = teamData.find(t => t.id === teamId);
-            const shareUrl = `${window.location.origin}/team-details.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}`;
+            const shareUrl = `${window.location.origin}/card.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}`;
             const shareText = `${decodeURIComponent(submittedName)} ne ${team.name} ko chuna hai IPL 2025 ke liye aur predict kiya hai ${scorePrediction} runs! Check karo: ${shareUrl}`;
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             window.location.href = whatsappUrl;
