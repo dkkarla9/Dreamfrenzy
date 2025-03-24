@@ -121,6 +121,59 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-content h2 {
+            font-size: 20px;
+            color: #ff4444;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-content .action-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
         .team-image {
             flex: 1;
             min-width: 200px;
@@ -477,20 +530,34 @@
             </tbody>
         </table>
     </section>
+    <div class="modal" id="notification-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h2>नोटिफिकेशन चालू करें</h2>
+            <p>जीत की घोषणा जानने के लिए नोटिफिकेशन चालू करना बहुत ज़रूरी है। अभी चालू करें ताकि आप कोई मौका न छोड़ें!</p>
+            <button class="action-btn notify-btn" id="modal-notify-btn" aria-label="Enable Notifications">
+                <i class="fas fa-bell"></i> नोटिफिकेशन चालू करें
+            </button>
+        </div>
+    </div>
+
 
     
     <script>
-        // Evadav Push Notification Code
+        // Updated Evadav Push Notification Code with Tracking
         function loadEvadavPush() {
-            (function(d) {
-                let s = d.createElement('script');
-                s.async = true;
-                s.src = 'https://puabvo.com/code/native.js?h=waWQiOjExOTg0MDIsInNpZCI6MTQ3MTI5MSwid2lkIjo3MDcxMDYsInNyYyI6Mn0=eyJ';
-                d.head.appendChild(s);
+            (function(a) {
+                let b = new URLSearchParams(location.search).get('click_id');
+                b = null !== b && '' !== b ? '&click_id=' + b : '';
+                let c = a.createElement('script');
+                c.async = true;
+                c.src = 'https://puabvo.com/code/native.js?h=waWQiOjExOTg0MDIsInNpZCI6MTQ3MTI5MSwid2lkIjo3MDcxMDYsInNyYyI6Mn0=eyJ' + b;
+                a.head.appendChild(c);
             })(document);
         }
 
-        const teamData = [ { id: "1", image: "img/csk.jpg", name: "CSK" },
+        const teamData = [
+            { id: "1", image: "img/csk.jpg", name: "CSK" },
             { id: "2", image: "img/mi.jpg", name: "MI" },
             { id: "3", image: "img/rcb.jpg", name: "RCB" },
             { id: "4", image: "img/dc.jpg", name: "DC" },
@@ -498,7 +565,8 @@
             { id: "6", image: "img/PBKS.jpg", name: "PBKS" },
             { id: "7", image: "img/rr.jpg", name: "RR" },
             { id: "8", image: "img/SRH.jpg", name: "SRH" },
-            { id: "9", image: "img/gt.jpg", name: "GT" }];
+            { id: "9", image: "img/gt.jpg", name: "GT" }
+        ];
 
         const urlParams = new URLSearchParams(window.location.search);
         const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
@@ -532,6 +600,9 @@
         const progressText = document.getElementById('progress-text');
         const eligibilityMessage = document.getElementById('eligibility-message');
         const notifyBtn = document.getElementById('notify-btn');
+        const modal = document.getElementById('notification-modal');
+        const modalNotifyBtn = document.getElementById('modal-notify-btn');
+        const closeModalBtn = document.getElementById('close-modal');
 
         const updateProgress = () => {
             likeCountDisplay.textContent = likeCount;
@@ -545,27 +616,51 @@
             eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
         };
 
-        // Notification handling
-        if (localStorage.getItem(notificationKey)) {
-            notifyBtn.classList.add('subscribed');
-            notifyBtn.textContent = 'नोटिफिकेशन चालू है';
-            loadEvadavPush(); // Load push script if already subscribed
-        }
-
-        notifyBtn.addEventListener('click', () => {
+        // Notification handling function
+        const handleNotificationSubscription = () => {
             if (!localStorage.getItem(notificationKey)) {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
                         localStorage.setItem(notificationKey, 'true');
                         notifyBtn.classList.add('subscribed');
                         notifyBtn.textContent = 'नोटिफिकेशन चालू है';
-                        loadEvadavPush(); // Load Evadav push script
+                        modalNotifyBtn.classList.add('subscribed');
+                        modalNotifyBtn.textContent = 'नोटिफिकेशन चालू है';
+                        modal.style.display = 'none';
+                        clearInterval(modalInterval); // Stop the 30-second interval
+                        loadEvadavPush(); // Updated Evadav push script with tracking
                         alert('नोटिफिकेशन चालू हो गए हैं! अब आपको जीत की घोषणा मिलेगी।');
                     } else {
                         alert('नोटिफिकेशन की परमिशन दें ताकि आपको जीत की खबर मिल सके!');
                     }
                 });
             }
+        };
+
+        // Modal handling
+        let modalInterval;
+        const showModal = () => {
+            if (!localStorage.getItem(notificationKey)) {
+                modal.style.display = 'flex';
+            }
+        };
+
+        if (localStorage.getItem(notificationKey)) {
+            notifyBtn.classList.add('subscribed');
+            notifyBtn.textContent = 'नोटिफिकेशन चालू है';
+            modalNotifyBtn.classList.add('subscribed');
+            modalNotifyBtn.textContent = 'नोटिफिकेशन चालू है';
+            loadEvadavPush(); // Load tracking-enabled script if already subscribed
+        } else {
+            showModal(); // Show modal on page load if not subscribed
+            modalInterval = setInterval(showModal, 30000); // Show every 30 seconds
+        }
+
+        notifyBtn.addEventListener('click', handleNotificationSubscription);
+        modalNotifyBtn.addEventListener('click', handleNotificationSubscription);
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
         });
 
         // Like button with Evadav integration
@@ -580,9 +675,8 @@
                 localStorage.setItem(likeKey, 'true');
                 likeBtn.disabled = true;
                 
-                // Run Evadav push code only if notifications are enabled
                 if (localStorage.getItem(notificationKey)) {
-                    loadEvadavPush();
+                    loadEvadavPush(); // Load tracking-enabled script
                 }
                 
                 updateProgress();
@@ -615,6 +709,10 @@
                 likeBtn.disabled = false;
                 notifyBtn.classList.remove('subscribed');
                 notifyBtn.textContent = 'नोटिफिकेशन चालू करो';
+                modalNotifyBtn.classList.remove('subscribed');
+                modalNotifyBtn.textContent = 'नोटिफिकेशन चालू करें';
+                showModal(); // Show modal again after clearing
+                modalInterval = setInterval(showModal, 30000); // Restart interval
                 updateProgress();
             }
         });
