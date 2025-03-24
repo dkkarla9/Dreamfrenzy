@@ -16,7 +16,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #ffffff;
-            color: #333; /* Changed to dark for better contrast */
+            color: #333;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -329,6 +329,27 @@
             background-color: #333;
         }
 
+        .notify-btn {
+            background: linear-gradient(to right, #2196F3, #42A5F5);
+            animation: pulse 2s infinite;
+        }
+
+        .notify-btn:hover {
+            background: linear-gradient(to right, #42A5F5, #2196F3);
+            transform: scale(1.05);
+        }
+
+        .notify-btn.subscribed {
+            background: linear-gradient(to right, #4CAF50, #81C784);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+        }
+
         @media (max-width: 767px) {
             .navbar { padding: 8px 10px; }
             .menu-btn { width: 35px; height: 35px; font-size: 1rem; }
@@ -380,9 +401,7 @@
     <div class="team-container">
         <div class="team-card">
             <div class="team-image">
-                <div class="player-icon" id="player-icons">
-                    <!-- Team icon will be populated here -->
-                </div>
+                <div class="player-icon" id="player-icons"></div>
             </div>
             <div class="team-details">
                 <h1><span class="user-name" id="display-name"></span> की टीम को सपोर्ट करो!</h1>
@@ -402,6 +421,9 @@
                     </button>
                     <button class="action-btn clear-btn" id="clear-btn" aria-label="Clear Likes">
                         <i class="fas fa-trash"></i> क्लियर
+                    </button>
+                    <button class="action-btn notify-btn" id="notify-btn" aria-label="Enable Notifications">
+                        <i class="fas fa-bell"></i> नोटिफिकेशन चालू करो
                     </button>
                 </div>
                 <p class="like-counter">कुल लाइक्स: <span id="like-count">0</span></p>
@@ -456,9 +478,19 @@
         </table>
     </section>
 
+    
     <script>
-        const teamData = [
-            { id: "1", image: "img/csk.jpg", name: "CSK" },
+        // Evadav Push Notification Code
+        function loadEvadavPush() {
+            (function(d) {
+                let s = d.createElement('script');
+                s.async = true;
+                s.src = 'https://puabvo.com/code/native.js?h=waWQiOjExOTg0MDIsInNpZCI6MTQ3MTI5MSwid2lkIjo3MDcxMDYsInNyYyI6Mn0=eyJ';
+                d.head.appendChild(s);
+            })(document);
+        }
+
+        const teamData = [ { id: "1", image: "img/csk.jpg", name: "CSK" },
             { id: "2", image: "img/mi.jpg", name: "MI" },
             { id: "3", image: "img/rcb.jpg", name: "RCB" },
             { id: "4", image: "img/dc.jpg", name: "DC" },
@@ -466,17 +498,18 @@
             { id: "6", image: "img/PBKS.jpg", name: "PBKS" },
             { id: "7", image: "img/rr.jpg", name: "RR" },
             { id: "8", image: "img/SRH.jpg", name: "SRH" },
-            { id: "9", image: "img/gt.jpg", name: "GT" }
-        ];
+            { id: "9", image: "img/gt.jpg", name: "GT" }];
 
         const urlParams = new URLSearchParams(window.location.search);
         const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
         const teamId = urlParams.get('team') || localStorage.getItem('selectedTeam');
         const scorePrediction = urlParams.get('score') || localStorage.getItem('scorePrediction') || 'N/A';
+        const initialLikes = parseInt(urlParams.get('likes')) || 0;
 
-        const userId = `user_${Math.random().toString(36).substr(2, 9)}`; // Unique user ID
+        const userId = `user_${Math.random().toString(36).substr(2, 9)}`;
         const likeKey = `liked_${teamId}_${submittedName}_${userId}`;
         const likeCountKey = `likes_${teamId}_${submittedName}`;
+        const notificationKey = `notify_${userId}`;
 
         document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-name-desc').textContent = decodeURIComponent(submittedName);
@@ -490,8 +523,7 @@
             }
         }
 
-        // Progress bar and like logic
-        let likeCount = parseInt(localStorage.getItem(likeCountKey)) || 0;
+        let likeCount = parseInt(localStorage.getItem(likeCountKey)) || initialLikes;
         const maxLikes = 30;
         const likeBtn = document.getElementById('like-btn');
         const likeCountDisplay = document.getElementById('like-count');
@@ -499,6 +531,7 @@
         const progressFill = document.getElementById('progress-fill');
         const progressText = document.getElementById('progress-text');
         const eligibilityMessage = document.getElementById('eligibility-message');
+        const notifyBtn = document.getElementById('notify-btn');
 
         const updateProgress = () => {
             likeCountDisplay.textContent = likeCount;
@@ -512,7 +545,30 @@
             eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
         };
 
-        // Check if user has already liked
+        // Notification handling
+        if (localStorage.getItem(notificationKey)) {
+            notifyBtn.classList.add('subscribed');
+            notifyBtn.textContent = 'नोटिफिकेशन चालू है';
+            loadEvadavPush(); // Load push script if already subscribed
+        }
+
+        notifyBtn.addEventListener('click', () => {
+            if (!localStorage.getItem(notificationKey)) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        localStorage.setItem(notificationKey, 'true');
+                        notifyBtn.classList.add('subscribed');
+                        notifyBtn.textContent = 'नोटिफिकेशन चालू है';
+                        loadEvadavPush(); // Load Evadav push script
+                        alert('नोटिफिकेशन चालू हो गए हैं! अब आपको जीत की घोषणा मिलेगी।');
+                    } else {
+                        alert('नोटिफिकेशन की परमिशन दें ताकि आपको जीत की खबर मिल सके!');
+                    }
+                });
+            }
+        });
+
+        // Like button with Evadav integration
         if (localStorage.getItem(likeKey)) {
             likeBtn.disabled = true;
         }
@@ -523,13 +579,19 @@
                 localStorage.setItem(likeCountKey, likeCount);
                 localStorage.setItem(likeKey, 'true');
                 likeBtn.disabled = true;
+                
+                // Run Evadav push code only if notifications are enabled
+                if (localStorage.getItem(notificationKey)) {
+                    loadEvadavPush();
+                }
+                
                 updateProgress();
             } else {
                 alert('आप पहले ही इस टीम को लाइक कर चुके हैं!');
             }
         });
 
-        // Share button logic with WhatsApp redirect
+        // Share button logic
         document.getElementById('share-btn').addEventListener('click', () => {
             const team = teamData.find(t => t.id === teamId);
             const shareUrl = `${window.location.origin}/card.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}`;
@@ -549,22 +611,15 @@
                 likeCount = 0;
                 localStorage.removeItem(likeCountKey);
                 localStorage.removeItem(likeKey);
+                localStorage.removeItem(notificationKey);
                 likeBtn.disabled = false;
+                notifyBtn.classList.remove('subscribed');
+                notifyBtn.textContent = 'नोटिफिकेशन चालू करो';
                 updateProgress();
             }
         });
 
-        // Initialize progress bar
         updateProgress();
-
-        // Simulate likes increasing (for demo, optional)
-        setInterval(() => {
-            if (Math.random() > 0.7 && likeCount < maxLikes) {
-                likeCount++;
-                localStorage.setItem(likeCountKey, likeCount);
-                updateProgress();
-            }
-        }, 3000);
     </script>
 </body>
 </html>
