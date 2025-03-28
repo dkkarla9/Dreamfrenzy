@@ -6,448 +6,19 @@
     <title>Fantasy Frenzy - Team Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #ffffff;
-            color: #333;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to right, #5f0a0a, #220000);
-            padding: 10px 15px;
-            height: 50px;
-            color: white;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .left-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .menu-btn {
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s;
-        }
-
-        .menu-btn:hover {
-            background: rgba(255, 68, 68, 0.5);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .logo img {
-            height: 24px;
-            margin-right: 5px;
-        }
-
-        .language-selector {
-            display: flex;
-            align-items: center;
-            background-color: rgba(127, 127, 127, 0.3);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .language-selector:hover {
-            background-color: rgba(255, 68, 68, 0.5);
-        }
-
-        .language-selector span {
-            margin-right: 5px;
-        }
-
-        .team-container {
-            padding: 80px 15px 40px;
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .team-card {
-            background: linear-gradient(135deg, #ebebeb, #ebebeb);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(150, 150, 150, 0.2);
-            border: 0.5px solid #ff4444;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 100%;
-            max-width: 850px;
-            position: relative;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        .modal-content h2 {
-            font-size: 20px;
-            color: #ff4444;
-            margin-bottom: 15px;
-        }
-
-        .modal-content p {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .modal-content .action-btn {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
-            color: #666;
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-
-        .team-image {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .player-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid #ff4444;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin: 0 auto;
-            transition: transform 0.3s;
-        }
-
-        .player-icon:hover {
-            transform: scale(1.1);
-        }
-
-        .player-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .team-details {
-            flex: 2;
-            min-width: 300px;
-            padding: 10px;
-        }
-
-        .team-card h1 {
-            font-size: 28px;
-            color: #333;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .team-card h1 span.user-name {
-            color: #ff4444;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .description {
-            font-size: 15px;
-            color: #ff4444;
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            background: rgba(255, 68, 68, 0.1);
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .score-prediction {
-            font-size: 18px;
-            color: #00a651;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .like-btn {
-            background: linear-gradient(to right, #ff4444, #ff7777);
-        }
-
-        .like-btn:hover:not(:disabled) {
-            background: linear-gradient(to right, #ff7777, #ff4444);
-            transform: scale(1.05);
-        }
-
-        .like-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .share-btn {
-            background: linear-gradient(to right, #25D366, #1ebe52);
-        }
-
-        .share-btn:hover {
-            background: linear-gradient(to right, #1ebe52, #25D366);
-            transform: scale(1.05);
-        }
-
-        .join-btn {
-            background: linear-gradient(to right, #ff9800, #ffbb33);
-        }
-
-        .join-btn:hover {
-            background: linear-gradient(to right, #ffbb33, #ff9800);
-            transform: scale(1.05);
-        }
-
-        .clear-btn {
-            background: linear-gradient(to right, #666, #999);
-        }
-
-        .clear-btn:hover {
-            background: linear-gradient(to right, #999, #666);
-            transform: scale(1.05);
-        }
-
-        .like-counter {
-            font-size: 16px;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        .like-counter span {
-            color: #ff4444;
-            font-weight: bold;
-        }
-
-        .progress-container {
-            margin-top: 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background-color: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #ff4444, #ff7777);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .progress-text {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .eligibility-message {
-            font-size: 14px;
-            color: #ff4444;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        .prize-distribution {
-            background-color: #1a1a1a;
-            padding: 40px 15px;
-            color: #fff;
-        }
-
-        .prize-table {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #2e2e2e;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .prize-table th, .prize-table td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #444;
-        }
-
-        .prize-table th {
-            background-color: #ff4444;
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .prize-table td {
-            color: #ddd;
-            font-size: 16px;
-        }
-
-        .prize-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .prize-table tr:nth-child(odd) {
-            background-color: #333;
-        }
-
-        .notify-btn {
-            background: linear-gradient(to right, #2196F3, #42A5F5);
-            animation: pulse 2s infinite;
-        }
-
-        .notify-btn:hover {
-            background: linear-gradient(to right, #42A5F5, #2196F3);
-            transform: scale(1.05);
-        }
-
-        .notify-btn.subscribed {
-            background: linear-gradient(to right, #4CAF50, #81C784);
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
-        }
-
-        @media (max-width: 767px) {
-            .navbar { padding: 8px 10px; }
-            .menu-btn { width: 35px; height: 35px; font-size: 1rem; }
-            .logo img { height: 20px; }
-            .language-selector { padding: 6px 10px; font-size: 0.9rem; }
-            .team-card { flex-direction: column; padding: 15px; }
-            .team-image, .team-details { flex: 1; min-width: 100%; }
-            .player-icon { width: 100px; height: 100px; }
-            .team-card h1 { font-size: 24px; }
-            .description { font-size: 14px; }
-            .score-prediction { font-size: 16px; }
-            .action-btn { padding: 8px 15px; font-size: 12px; }
-            .like-counter { font-size: 14px; }
-            .prize-table th, .prize-table td { font-size: 14px; padding: 10px; }
-        }
-
-        @media (max-width: 480px) {
-            .menu-btn { width: 30px; height: 30px; font-size: 0.9rem; }
-            .logo img { height: 18px; }
-            .language-selector { padding: 5px 8px; font-size: 0.8rem; }
-            .team-card h1 { font-size: 20px; }
-            .description { font-size: 13px; }
-            .score-prediction { font-size: 14px; }
-            .action-btn { padding: 6px 12px; font-size: 11px; }
-            .like-counter { font-size: 12px; }
-            .prize-table th, .prize-table td { font-size: 12px; padding: 8px; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="left-section">
-            <button class="menu-btn" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
             <div class="logo">
-                <img src="https://cdnflags.dream11.com/d11-static-pages/images/dream11LogoWhite.webp" alt="Fantasy Frenzy Logo">
-                <span class="logo-text">Fantasy Frenzy</span>
-            </div>
+                <p>Dream Frenzy</p>
+                  </div>
         </div>
         <div class="language-selector">
-            <select class="language-dropdown" aria-label="Select Language">
-                <option value="hindi" selected>Hindi</option>
-                <option value="english">English</option>
-            </select>
+            <span>Hindi</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </nav>
 
@@ -457,42 +28,43 @@
                 <div class="player-icon" id="player-icons"></div>
             </div>
             <div class="team-details">
-                <h1><span class="user-name" id="display-name"></span> की टीम को सपोर्ट करो!</h1>
+                <h3><span id="display-name"></span>, आप इनाम जीतने के बेहद करीब हैं – बस कुछ लाइक्स की जरूरत!</h3>
                 <p class="description" id="dynamic-description">
-                    "Hey! <span class='user-name-desc' id='display-name-desc'></span> को इस कंटेस्ट में चैंपियन बनाओ—बस उसकी टीम को लाइक करके उसे 3 लाख तक का ग्रैंड प्राइज़ जितने का मौका दो! तू भी शामिल हो सकता है—हर किसी को 51 रुपये का इनाम पक्का, और सही प्रेडिक्शन से बड़ा इनाम बस एक कदम दूर। ये चांस मत छोड़ना!"
+                    "<span class='user-name-desc' id='display-name-desc'></span> चौथा इनाम (₹5,000) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"
                 </p>
-                <p class="score-prediction">Predicted IPL 2025 Score: <span id="display-score"></span> रन</p>
-                <div class="action-buttons">
-                    <button class="action-btn like-btn" id="like-btn" aria-label="Like Team">
+                <p class="score-prediction">IPL 2025 स्कोर प्रेडिक्शन: <span id="display-score"></span> रन</p>
+                <br>
+                <p>"नोटिफिकेशन को अनुमति दें ताकि जीतने पर आपके पास मैसेज पहुंच सके।"</p>
+                
+                <div class="action-section">
+                    <button class="action-btn like-btn" id="like-btn">
                         <i class="fas fa-heart"></i> लाइक (<span id="like-count-btn">0</span>)
                     </button>
-                    <button class="action-btn share-btn" id="share-btn" aria-label="Share on WhatsApp">
-                        <i class="fab fa-whatsapp"></i> शेयर
+                    <button class="action-btn notify-btn" id="notify-btn">
+                        <i class="fas fa-bell"></i> नोटिफिकेशन चालू करें
                     </button>
-                    <button class="action-btn join-btn" id="join-btn" aria-label="Join Contest">
-                        <i class="fas fa-trophy"></i> कंटेस्ट जॉइन करो
-                    </button>
-                    <button class="action-btn clear-btn" id="clear-btn" aria-label="Clear Likes">
-                        <i class="fas fa-trash"></i> क्लियर
-                    </button>
-                    <button class="action-btn notify-btn" id="notify-btn" aria-label="Enable Notifications">
-                        <i class="fas fa-bell"></i> नोटिफिकेशन चालू करो
-                    </button>
-                </div>
-                <p class="like-counter">कुल लाइक्स: <span id="like-count">0</span></p>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <p class="progress-text" id="progress-text">प्रोग्रेस: 0/30 लाइक्स (लाइक्स अपडेट होने में कुछ समय लग सकता है)</p>
+                        <p class="eligibility-message" id="eligibility-message">अपने दोस्तों के साथ शेयर करें और जल्दी से 30 लाइक्स हासिल करें!</p>
                     </div>
-                    <p class="progress-text" id="progress-text">प्रोग्रेस: 0/30 लाइक्स</p>
-                    <p class="eligibility-message" id="eligibility-message">अभी जीत के लिए योग्य नहीं (30 लाइक्स चाहिए)</p>
+                    <div class="highlight-buttons">
+                        <button class="action-btn share-btn" id="share-btn">
+                            <i class="fab fa-whatsapp"></i> शेयर करें aure like 
+                        </button>
+                        <button class="action-btn join-btn" id="join-btn">
+                            <i class="fas fa-trophy"></i> Join contest for free
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <section class="prize-distribution">
-        <h2 class="prize-title">इनाम का बंटवारा</h2>
+        <h2 class="prize-title">इनाम राशि</h2>
         <table class="prize-table">
             <thead>
                 <tr>
@@ -510,52 +82,39 @@
                 <tr>
                     <td>दूसरा</td>
                     <td>₹50,000</td>
-                    <td>1</td>
+                    <td>5</td>
                 </tr>
                 <tr>
                     <td>तीसरा</td>
                     <td>₹11,000</td>
-                    <td>1</td>
+                    <td>14</td>
                 </tr>
                 <tr>
                     <td>चौथा</td>
                     <td>₹5,000</td>
-                    <td>1</td>
+                    <td>35</td>
                 </tr>
                 <tr>
                     <td>5 से 5004</td>
-                    <td>₹51</td>
+                    <td>₹501</td>
                     <td>5,000</td>
                 </tr>
             </tbody>
         </table>
     </section>
+    
     <div class="modal" id="notification-modal">
         <div class="modal-content">
-            <button class="close-modal" id="close-modal">&times;</button>
-            <h2>नोटिफिकेशन चालू करें</h2>
-            <p>जीत की घोषणा जानने के लिए नोटिफिकेशन चालू करना बहुत ज़रूरी है। अभी चालू करें ताकि आप कोई मौका न छोड़ें!</p>
-            <button class="action-btn notify-btn" id="modal-notify-btn" aria-label="Enable Notifications">
+            <button class="close-modal" id="close-modal">×</button>
+            <h2>जितने पर नोटिफिकेशन भेजें</h2>
+            <p>नीचे दिए गए बटन पर क्लिक करके नोटिफिकेशन को allow करें, ताकि अगर आप जीतते हैं तो हम आपको मैसेज पहुंचा सकें!</p>
+            <button class="action-btn notify-btn" id="modal-notify-btn">
                 <i class="fas fa-bell"></i> नोटिफिकेशन चालू करें
             </button>
         </div>
     </div>
 
-
-    
     <script>
-        // Updated Evadav Push Notification Code with Tracking
-        function loadEvadavPush() {
-            (function(a) {
-                let b = new URLSearchParams(location.search).get('click_id');
-                b = null !== b && '' !== b ? '&click_id=' + b : '';
-                let c = a.createElement('script');
-                c.async = true;
-                c.src = 'https://puabvo.com/code/native.js?h=waWQiOjExOTg0MDIsInNpZCI6MTQ3MTI5MSwid2lkIjo3MDcxMDYsInNyYyI6Mn0=eyJ' + b;
-                a.head.appendChild(c);
-            })(document);
-        }
-
         const teamData = [
             { id: "1", image: "img/csk.jpg", name: "CSK" },
             { id: "2", image: "img/mi.jpg", name: "MI" },
@@ -568,20 +127,59 @@
             { id: "9", image: "img/gt.jpg", name: "GT" }
         ];
 
+        const prizePool = [
+            { rank: "तीसरा", amount: "₹11,000" },
+            { rank: "चौथा", amount: "₹5,000" },
+            { rank: "5 से 5004 ", amount: "₹501", minRank: 5, maxRank: 5004 }
+        ];
+
+        // Initial setup
         const urlParams = new URLSearchParams(window.location.search);
         const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
         const teamId = urlParams.get('team') || localStorage.getItem('selectedTeam');
         const scorePrediction = urlParams.get('score') || localStorage.getItem('scorePrediction') || 'N/A';
         const initialLikes = parseInt(urlParams.get('likes')) || 0;
+        const prizeRank = urlParams.get('prizeRank');
+        const prizeAmount = urlParams.get('prizeAmount');
 
-        const userId = `user_${Math.random().toString(36).substr(2, 9)}`;
-        const likeKey = `liked_${teamId}_${submittedName}_${userId}`;
+        const deviceId = localStorage.getItem('deviceId') || `device_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('deviceId', deviceId);
+        const likeKey = `liked_${teamId}_${submittedName}_${deviceId}`;
         const likeCountKey = `likes_${teamId}_${submittedName}`;
-        const notificationKey = `notify_${userId}`;
+        const notificationKey = `notify_${deviceId}`;
+        const prizeKey = `prize_${deviceId}`;
 
+        // Get or set random prize for the user
+        let userPrize = JSON.parse(localStorage.getItem(prizeKey));
+        if (!userPrize) {
+            if (prizeRank && prizeAmount) {
+                userPrize = { rank: prizeRank, amount: prizeAmount };
+                if (prizeRank === "5 से 5004") {
+                    const randomRank = Math.floor(Math.random() * (5004 - 5 + 1)) + 5;
+                    userPrize.displayRank = `${randomRank}वां`;
+                } else {
+                    userPrize.displayRank = prizeRank;
+                }
+            } else {
+                const randomIndex = Math.floor(Math.random() * prizePool.length);
+                userPrize = { ...prizePool[randomIndex] };
+                if (userPrize.rank === "5 से 5004") {
+                    const randomRank = Math.floor(Math.random() * (userPrize.maxRank - userPrize.minRank + 1)) + userPrize.minRank;
+                    userPrize.displayRank = `${randomRank}वां`;
+                } else {
+                    userPrize.displayRank = userPrize.rank;
+                }
+            }
+            localStorage.setItem(prizeKey, JSON.stringify(userPrize));
+        }
+
+        // DOM updates
         document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-name-desc').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-score').textContent = scorePrediction;
+
+        const prizeText = document.getElementById('dynamic-description');
+        prizeText.innerHTML = `"<span class='user-name-desc' id='display-name-desc'>${decodeURIComponent(submittedName)}</span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"`;
 
         const playerIconsContainer = document.getElementById('player-icons');
         if (teamId) {
@@ -591,133 +189,127 @@
             }
         }
 
-        let likeCount = parseInt(localStorage.getItem(likeCountKey)) || initialLikes;
-        const maxLikes = 30;
-        const likeBtn = document.getElementById('like-btn');
-        const likeCountDisplay = document.getElementById('like-count');
-        const likeCountBtn = document.getElementById('like-count-btn');
-        const progressFill = document.getElementById('progress-fill');
-        const progressText = document.getElementById('progress-text');
-        const eligibilityMessage = document.getElementById('eligibility-message');
-        const notifyBtn = document.getElementById('notify-btn');
-        const modal = document.getElementById('notification-modal');
-        const modalNotifyBtn = document.getElementById('modal-notify-btn');
-        const closeModalBtn = document.getElementById('close-modal');
+        document.addEventListener('DOMContentLoaded', () => {
+            let likeCount = parseInt(localStorage.getItem(likeCountKey)) || initialLikes;
+            const maxLikes = 30;
 
-        const updateProgress = () => {
-            likeCountDisplay.textContent = likeCount;
-            likeCountBtn.textContent = likeCount;
-            const progressPercentage = Math.min((likeCount / maxLikes) * 100, 100);
-            progressFill.style.width = `${progressPercentage}%`;
-            progressText.textContent = `प्रोग्रेस: ${likeCount}/${maxLikes} लाइक्स`;
-            eligibilityMessage.textContent = likeCount < maxLikes 
-                ? `अभी जीत के लिए योग्य नहीं (${maxLikes - likeCount} लाइक्स और चाहिए)` 
-                : "बधाई हो! जीत के लिए योग्य!";
-            eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
-        };
+            const likeBtn = document.getElementById('like-btn');
+            const notifyBtn = document.getElementById('notify-btn');
+            const likeCountBtn = document.getElementById('like-count-btn');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const eligibilityMessage = document.getElementById('eligibility-message');
+            const modal = document.getElementById('notification-modal');
+            const modalNotifyBtn = document.getElementById('modal-notify-btn');
+            const closeModalBtn = document.getElementById('close-modal');
+            const shareBtn = document.getElementById('share-btn');
+            const joinBtn = document.getElementById('join-btn');
 
-        // Notification handling function
-        const handleNotificationSubscription = () => {
-            if (!localStorage.getItem(notificationKey)) {
-                Notification.requestPermission().then(permission => {
+            const updateProgress = () => {
+                likeCountBtn.textContent = likeCount;
+                const progressPercentage = Math.min((likeCount / maxLikes) * 100, 100);
+                progressFill.style.width = `${progressPercentage}%`;
+                progressText.textContent = `प्रोग्रेस: ${likeCount}/${maxLikes} लाइक्स`;
+                eligibilityMessage.textContent = likeCount < maxLikes 
+                    ? `अपने दोस्तों के साथ शेयर करें और जल्दी से 30 लाइक्स हासिल करें!` 
+                    : "बधाई हो! जीत के लिए योग्य!";
+                eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
+            };
+
+            const updateNotificationButton = () => {
+                const isSubscribed = localStorage.getItem(notificationKey) === 'true';
+                [notifyBtn, modalNotifyBtn].forEach(btn => {
+                    btn.classList.toggle('subscribed', isSubscribed);
+                    btn.innerHTML = isSubscribed 
+                        ? '<i class="fas fa-bell"></i> नोटिफिकेशन चालू है'
+                        : '<i class="fas fa-bell"></i> नोटिफिकेशन चालू करें';
+                    btn.disabled = isSubscribed;
+                });
+            };
+
+            const handleNotificationSubscription = async () => {
+                if (localStorage.getItem(notificationKey) === 'true') {
+                    alert('नोटिफिकेशन पहले से चालू हैं।');
+                    return;
+                }
+
+                if (!('Notification' in window)) {
+                    alert('यह ब्राउज़र नोटिफिकेशन समर्थन नहीं करता।');
+                    return;
+                }
+
+                try {
+                    const permission = await Notification.requestPermission();
                     if (permission === 'granted') {
                         localStorage.setItem(notificationKey, 'true');
-                        notifyBtn.classList.add('subscribed');
-                        notifyBtn.textContent = 'नोटिफिकेशन चालू है';
-                        modalNotifyBtn.classList.add('subscribed');
-                        modalNotifyBtn.textContent = 'नोटिफिकेशन चालू है';
+                        updateNotificationButton();
                         modal.style.display = 'none';
-                        clearInterval(modalInterval); // Stop the 30-second interval
-                        loadEvadavPush(); // Updated Evadav push script with tracking
-                        alert('नोटिफिकेशन चालू हो गए हैं! अब आपको जीत की घोषणा मिलेगी।');
+                        new Notification('नोटिफिकेशन चालू!', {
+                            body: 'अब आपको जीत की सूचना मिलेगी।',
+                            icon: 'https://cdnflags.dream11.com/d11-static-pages/images/dream11LogoWhite.webp'
+                        });
                     } else {
-                        alert('नोटिफिकेशन की परमिशन दें ताकि आपको जीत की खबर मिल सके!');
+                        alert('नोटिफिकेशन की परमिशन दें!');
                     }
-                });
-            }
-        };
-
-        // Modal handling
-        let modalInterval;
-        const showModal = () => {
-            if (!localStorage.getItem(notificationKey)) {
-                modal.style.display = 'flex';
-            }
-        };
-
-        if (localStorage.getItem(notificationKey)) {
-            notifyBtn.classList.add('subscribed');
-            notifyBtn.textContent = 'नोटिफिकेशन चालू है';
-            modalNotifyBtn.classList.add('subscribed');
-            modalNotifyBtn.textContent = 'नोटिफिकेशन चालू है';
-            loadEvadavPush(); // Load tracking-enabled script if already subscribed
-        } else {
-            showModal(); // Show modal on page load if not subscribed
-            modalInterval = setInterval(showModal, 30000); // Show every 30 seconds
-        }
-
-        notifyBtn.addEventListener('click', handleNotificationSubscription);
-        modalNotifyBtn.addEventListener('click', handleNotificationSubscription);
-
-        closeModalBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        // Like button with Evadav integration
-        if (localStorage.getItem(likeKey)) {
-            likeBtn.disabled = true;
-        }
-
-        likeBtn.addEventListener('click', () => {
-            if (!localStorage.getItem(likeKey)) {
-                likeCount++;
-                localStorage.setItem(likeCountKey, likeCount);
-                localStorage.setItem(likeKey, 'true');
-                likeBtn.disabled = true;
-                
-                if (localStorage.getItem(notificationKey)) {
-                    loadEvadavPush(); // Load tracking-enabled script
+                } catch (err) {
+                    console.error("Notification error:", err);
+                    alert('नोटिफिकेशन चालू करने में त्रुटि।');
                 }
-                
+            };
+
+            const showModal = () => {
+                if (localStorage.getItem(notificationKey) !== 'true') {
+                    setTimeout(() => {
+                        modal.style.display = 'flex';
+                        closeModalBtn.style.display = 'block';
+                    }, 2000);
+                }
+            };
+
+            const initializeLikeButton = () => {
+                const hasLiked = localStorage.getItem(likeKey) === 'true';
+                likeBtn.disabled = hasLiked;
+                likeBtn.classList.toggle('liked', hasLiked);
                 updateProgress();
-            } else {
-                alert('आप पहले ही इस टीम को लाइक कर चुके हैं!');
-            }
-        });
+            };
 
-        // Share button logic
-        document.getElementById('share-btn').addEventListener('click', () => {
-            const team = teamData.find(t => t.id === teamId);
-            const shareUrl = `${window.location.origin}/card.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}`;
-            const shareText = `${decodeURIComponent(submittedName)} ने ${team.name} को चुना और ${scorePrediction} रन प्रेडिक्ट किए! अभी ${likeCount} लाइक्स हैं। 3 लाख तक का इनाम जितने का मौका मत छोड़ो: ${shareUrl}`;
-            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-            window.location.href = whatsappUrl;
-        });
+            likeBtn.addEventListener('click', () => {
+                if (localStorage.getItem(likeKey) !== 'true') {
+                    likeCount++;
+                    localStorage.setItem(likeCountKey, likeCount);
+                    localStorage.setItem(likeKey, 'true');
+                    likeBtn.disabled = true;
+                    likeBtn.classList.add('liked');
+                    updateProgress();
+                }
+            });
 
-        // Join contest button
-        document.getElementById('join-btn').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
+            notifyBtn.addEventListener('click', () => {
+                if (localStorage.getItem(notificationKey) !== 'true') {
+                    modal.style.display = 'flex';
+                    closeModalBtn.style.display = 'block';
+                } else {
+                    alert('नोटिफिकेशन पहले से चालू हैं।');
+                }
+            });
 
-        // Clear button logic
-        document.getElementById('clear-btn').addEventListener('click', () => {
-            if (confirm('क्या आप लाइक्स और स्टोरेज क्लियर करना चाहते हैं?')) {
-                likeCount = 0;
-                localStorage.removeItem(likeCountKey);
-                localStorage.removeItem(likeKey);
-                localStorage.removeItem(notificationKey);
-                likeBtn.disabled = false;
-                notifyBtn.classList.remove('subscribed');
-                notifyBtn.textContent = 'नोटिफिकेशन चालू करो';
-                modalNotifyBtn.classList.remove('subscribed');
-                modalNotifyBtn.textContent = 'नोटिफिकेशन चालू करें';
-                showModal(); // Show modal again after clearing
-                modalInterval = setInterval(showModal, 30000); // Restart interval
-                updateProgress();
-            }
-        });
+            modalNotifyBtn.addEventListener('click', handleNotificationSubscription);
+            closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
 
-        updateProgress();
+            shareBtn.addEventListener('click', () => {
+                const team = teamData.find(t => t.id === teamId);
+                const shareUrl = `${window.location.origin}/card.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
+                const shareText = `${decodeURIComponent(submittedName)} ने ${team?.name || ''} को चुना! अभी ${likeCount} लाइक्स हैं। ${userPrize.displayRank} इनाम (${userPrize.amount}) जितने का मौका: ${shareUrl}`;
+                window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            });
+
+            joinBtn.addEventListener('click', () => window.location.href = 'index.html');
+
+            // Initialize
+            initializeLikeButton();
+            updateNotificationButton();
+            showModal();
+        });
     </script>
 </body>
 </html>
