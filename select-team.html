@@ -305,23 +305,9 @@
             }
         });
 
-        clearButton.addEventListener('click', () => {
-            localStorage.removeItem('selectedTeam');
-            selectedItem = null;
-            gridItems.forEach(item => {
-                item.classList.remove('selected');
-                item.classList.remove('disabled');
-                item.style.cursor = 'pointer';
-                item.removeEventListener('click', handleItemClick); // Remove old listeners
-                item.addEventListener('click', handleItemClick);   // Add fresh listeners
-            });
-            counter.textContent = 0;
-            nextButton.disabled = true;
-            alert('Storage cleared! Ab naye se shuru kar sakta hai.');
-        });
+       
 
-        // Initialize on page load
-        initializeSelection();
+       
     </script>
 </body>
 </html>
