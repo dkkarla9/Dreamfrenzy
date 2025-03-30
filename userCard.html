@@ -12,9 +12,7 @@
     <nav class="navbar">
         <div class="left-section">
             <button class="menu-btn"><i class="fas fa-bars"></i></button>
-            <div class="logo">
-                <p>Dream Frenzy</p>
-            </div>
+            <div class="logo"><p>Dream Frenzy</p></div>
         </div>
         <div class="language-selector">
             <span>Hindi</span>
@@ -29,11 +27,8 @@
             </div>
             <div class="team-details">
                 <h3><span id="display-name"></span> Dream Frenzy के कंटेस्ट जीतने के काफी करीब है। – बस कुछ लाइक्स चाहिए!</h3>
-                <p class="description" id="dynamic-description">
-                    "<span class='user-name-desc' id='display-name-desc'></span> जीतने के बहुत करीब हैं। उनकी टीम को लाइक करके और अपने दोस्तों व सोशल मीडिया पर उनकी प्रेडिक्शन को शेयर करके उन्हें जिताएं। आप भी अपनी फ्री टीम चुनकर 3 लाख तक जीत सकते हैं।।"
-                </p>
+                <p class="description" id="dynamic-description"></p>
                 <p class="score-prediction">IPL 2025 स्कोर प्रेडिक्शन: <span id="display-score"></span> रन</p>
-                
                 
                 <div class="action-section">
                     <button class="action-btn like-btn" id="like-btn">
@@ -63,38 +58,14 @@
         <h2 class="prize-title">इनाम राशि</h2>
         <table class="prize-table">
             <thead>
-                <tr>
-                    <th>रैंक</th>
-                    <th>इनाम</th>
-                    <th>विजेता</th>
-                </tr>
+                <tr><th>रैंक</th><th>इनाम</th><th>विजेता</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>पहला</td>
-                    <td>₹3,00,000</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>दूसरा</td>
-                    <td>₹50,000</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>तीसरा</td>
-                    <td>₹11,000</td>
-                    <td>14</td>
-                </tr>
-                <tr>
-                    <td>चौथा</td>
-                    <td>₹5,000</td>
-                    <td>35</td>
-                </tr>
-                <tr>
-                    <td>5 से 5004</td>
-                    <td>₹501</td>
-                    <td>5,000</td>
-                </tr>
+                <tr><td>पहला</td><td>₹3,00,000</td><td>1</td></tr>
+                <tr><td>दूसरा</td><td>₹50,000</td><td>5</td></tr>
+                <tr><td>तीसरा</td><td>₹11,000</td><td>14</td></tr>
+                <tr><td>चौथा</td><td>₹5,000</td><td>35</td></tr>
+                <tr><td>5 से 5004</td><td>₹501</td><td>5,000</td></tr>
             </tbody>
         </table>
     </section>
@@ -115,10 +86,9 @@
         const prizePool = [
             { rank: "तीसरा", amount: "₹11,000" },
             { rank: "चौथा", amount: "₹5,000" },
-            { rank: "5 से 5004 ", amount: "₹501", minRank: 5, maxRank: 5004 }
+            { rank: "5 से 5004", amount: "₹501", minRank: 5, maxRank: 5004 }
         ];
 
-        // Initial setup
         const urlParams = new URLSearchParams(window.location.search);
         const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
         const teamId = urlParams.get('team') || localStorage.getItem('selectedTeam');
@@ -132,44 +102,27 @@
         const likeKey = `liked_${teamId}_${submittedName}_${deviceId}`;
         const likeCountKey = `likes_${teamId}_${submittedName}`;
 
-        // Get or set random prize for the user
         let userPrize = JSON.parse(localStorage.getItem(`prize_${deviceId}`));
         if (!userPrize) {
             if (prizeRank && prizeAmount) {
                 userPrize = { rank: prizeRank, amount: prizeAmount };
-                if (prizeRank === "5 से 5004") {
-                    const randomRank = Math.floor(Math.random() * (5004 - 5 + 1)) + 5;
-                    userPrize.displayRank = `${randomRank}वां`;
-                } else {
-                    userPrize.displayRank = prizeRank;
-                }
+                userPrize.displayRank = prizeRank === "5 से 5004" ? `${Math.floor(Math.random() * (5004 - 5 + 1)) + 5}वां` : prizeRank;
             } else {
                 const randomIndex = Math.floor(Math.random() * prizePool.length);
                 userPrize = { ...prizePool[randomIndex] };
-                if (userPrize.rank === "5 से 5004") {
-                    const randomRank = Math.floor(Math.random() * (userPrize.maxRank - userPrize.minRank + 1)) + userPrize.minRank;
-                    userPrize.displayRank = `${randomRank}वां`;
-                } else {
-                    userPrize.displayRank = userPrize.rank;
-                }
+                userPrize.displayRank = userPrize.rank === "5 से 5004" ? `${Math.floor(Math.random() * (userPrize.maxRank - userPrize.minRank + 1)) + userPrize.minRank}वां` : userPrize.rank;
             }
             localStorage.setItem(`prize_${deviceId}`, JSON.stringify(userPrize));
         }
 
-        // DOM updates
         document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
-        document.getElementById('display-name-desc').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-score').textContent = scorePrediction;
-
-        const prizeText = document.getElementById('dynamic-description');
-        prizeText.innerHTML = `"<span class='user-name-desc' id='display-name-desc'>${decodeURIComponent(submittedName)}</span>  ${userPrize.displayRank} इनाम (${userPrize.amount})जीतने के बहुत करीब हैं। उनकी टीम को लाइक करके और अपने दोस्तों व सोशल मीडिया पर उनकी प्रेडिक्शन को शेयर करके उन्हें जिताएं। आप भी अपनी फ्री टीम चुनकर 3 लाख तक जीत सकते हैं।"`;
+        document.getElementById('dynamic-description').innerHTML = `"<span class='user-name-desc'>${decodeURIComponent(submittedName)}</span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। उनकी टीम को लाइक करके और अपने दोस्तों व सोशल मीडिया पर उनकी प्रेडिक्शन को शेयर करके उन्हें जिताएं। आप भी अपनी फ्री टीम चुनकर 3 लाख तक जीत सकते हैं।"`;
 
         const playerIconsContainer = document.getElementById('player-icons');
         if (teamId) {
             const team = teamData.find(t => t.id === teamId);
-            if (team) {
-                playerIconsContainer.innerHTML = `<img src="${team.image}" alt="${team.name}" title="${team.name}">`;
-            }
+            if (team) playerIconsContainer.innerHTML = `<img src="${team.image}" alt="${team.name}" title="${team.name}">`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -189,9 +142,7 @@
                 const progressPercentage = Math.min((likeCount / maxLikes) * 100, 100);
                 progressFill.style.width = `${progressPercentage}%`;
                 progressText.textContent = `प्रोग्रेस: ${likeCount}/${maxLikes} लाइक्स`;
-                eligibilityMessage.textContent = likeCount < maxLikes 
-                    ? `दोस्तों के साथ शेयर करें और 30 लाइक्स जल्दी हासिल करें!` 
-                    : "बधाई हो! जीत के लिए योग्य!";
+                eligibilityMessage.textContent = likeCount < maxLikes ? "दोस्तों के साथ शेयर करें और 30 लाइक्स जल्दी हासिल करें!" : "बधाई हो! जीत के लिए योग्य!";
                 eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
             };
 
@@ -222,7 +173,6 @@
 
             joinBtn.addEventListener('click', () => window.location.href = 'index.html');
 
-            // Initialize
             initializeLikeButton();
         });
     </script>
