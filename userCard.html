@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fantasy Frenzy - Team Card</title>
+    <title>Dream Frenzy - Team Card</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -167,7 +167,7 @@
             shareBtn.addEventListener('click', () => {
                 const team = teamData.find(t => t.id === teamId);
                 const shareUrl = `${window.location.origin}/userCard.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
-                const shareText = `${decodeURIComponent(submittedName)} का दोस्त ${team?.name || ''} को सपोर्ट कर रहा है! अभी ${likeCount} लाइक्स हैं। ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने का मौका: ${shareUrl}`;
+                const shareText = `${Dream Frenzy के इस कॉन्टेस्ट में decodeURIComponent(submittedName)} को ${userPrize.displayRank} विनिंग अमाउंट (${userPrize.amount}) जीतने का मौका मिल सकता है, क्योंकि उन्होंने${team?.name || ''} को चुना! उनकी टीम को सपोर्ट करने के लिए उनकी टीम को लाइक करें) जितने का मौका: ${shareUrl}`;
                 window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             });
 
