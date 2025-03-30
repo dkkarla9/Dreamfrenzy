@@ -135,7 +135,7 @@
 
         document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-score').textContent = scorePrediction;
-        document.getElementById('dynamic-description').innerHTML = `"<span class='user-name-desc'>${decodeURIComponent(submittedName)}</span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"`;
+        document.getElementById('dynamic-description').innerHTML = `"<span class='user-name-desc'>${decodeURIComponent(submittedName)} आप </span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"`;
 
         const playerIconsContainer = document.getElementById('player-icons');
         if (teamId) {
