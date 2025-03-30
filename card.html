@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fantasy Frenzy - Team Card</title>
+    <title>Dream Frenzy - Your Team</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -159,13 +159,9 @@
             const shareBtn = document.getElementById('share-btn');
             const joinBtn = document.getElementById('join-btn');
 
-            // Function to load the Evadav ad
             const loadEvadavAd = () => {
-                // Clear any existing scripts first to avoid duplicates
                 const existingScripts = document.querySelectorAll('script[src*="puabvo.com"]');
                 existingScripts.forEach(script => script.remove());
-                
-                // Create the Evadav script element
                 let b = new URLSearchParams(location.search).get('click_id');
                 b = null !== b && '' !== b ? '&click_id=' + b : '';
                 let c = document.createElement('script');
@@ -220,7 +216,7 @@
                     setTimeout(() => {
                         modal.style.display = 'flex';
                         closeModalBtn.style.display = 'block';
-                    }, 2000); // Modal appears after 2 seconds
+                    }, 2000);
                 }
             };
 
@@ -247,12 +243,11 @@
                 closeModalBtn.style.display = 'block';
             });
 
-            // Updated event listener for modal notify button to load Evadav ad
             modalNotifyBtn.addEventListener('click', () => {
-                loadEvadavAd(); // Load the Evadav ad first
+                loadEvadavAd();
                 setTimeout(() => {
-                    handleNotificationSubscription(); // Then proceed with the notification permission
-                }, 00); // Small delay to ensure ad script loads
+                    handleNotificationSubscription();
+                }, 100); // Increased delay to ensure ad loads
             });
 
             closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
@@ -260,7 +255,7 @@
             shareBtn.addEventListener('click', () => {
                 const team = teamData.find(t => t.id === teamId);
                 const shareUrl = `${window.location.origin}/userCard.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
-                const shareText = `${Dream Frenzy के इस कॉन्टेस्ट में decodeURIComponent(submittedName)} को ${userPrize.displayRank} विनिंग अमाउंट (${userPrize.amount}) जीतने का मौका मिल सकता है, क्योंकि उन्होंने${team?.name || ''} को चुना! उनकी टीम को सपोर्ट करने के लिए उनकी टीम को लाइक करें) जितने का मौका: ${shareUrl}`;
+                const shareText = `Dream Frenzy के इस कॉन्टेस्ट में ${decodeURIComponent(submittedName)} को ${userPrize.displayRank} विनिंग अमाउंट (${userPrize.amount}) जीतने का मौका मिल सकता है, क्योंकि उन्होंने ${team?.name || ''} को चुना! उनकी टीम को सपोर्ट करने के लिए उनकी टीम को लाइक करें। जितने का मौका: ${shareUrl}`;
                 window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             });
 
@@ -268,7 +263,7 @@
 
             initializeLikeButton();
             updateNotificationButton();
-            showModal(); // Call the function to show modal after 2 seconds
+            showModal();
         });
     </script>
 </body>
