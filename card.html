@@ -12,9 +12,7 @@
     <nav class="navbar">
         <div class="left-section">
             <button class="menu-btn"><i class="fas fa-bars"></i></button>
-            <div class="logo">
-                <p>Dream Frenzy</p>
-                  </div>
+            <div class="logo"><p>Dream Frenzy</p></div>
         </div>
         <div class="language-selector">
             <span>Hindi</span>
@@ -29,9 +27,7 @@
             </div>
             <div class="team-details">
                 <h3><span id="display-name"></span>, आप इनाम जीतने के बेहद करीब हैं – बस कुछ लाइक्स की जरूरत!</h3>
-                <p class="description" id="dynamic-description">
-                    "<span class='user-name-desc' id='display-name-desc'></span> चौथा इनाम (₹5,000) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"
-                </p>
+                <p class="description" id="dynamic-description"></p>
                 <p class="score-prediction">IPL 2025 स्कोर प्रेडिक्शन: <span id="display-score"></span> रन</p>
                 <br>
                 <p>"नोटिफिकेशन को अनुमति दें ताकि जीतने पर आपके पास मैसेज पहुंच सके।"</p>
@@ -47,12 +43,12 @@
                         <div class="progress-bar">
                             <div class="progress-fill" id="progress-fill"></div>
                         </div>
-                        <p class="progress-text" id="progress-text">प्रोग्रेस: 0/30 लाइक्स (लाइक्स अपडेट होने में कुछ समय लग सकता है)</p>
+                        <p class="progress-text" id="progress-text">प्रोग्रेस: 0/30 लाइक्स</p>
                         <p class="eligibility-message" id="eligibility-message">अपने दोस्तों के साथ शेयर करें और जल्दी से 30 लाइक्स हासिल करें!</p>
                     </div>
                     <div class="highlight-buttons">
                         <button class="action-btn share-btn" id="share-btn">
-                            <i class="fab fa-whatsapp"></i> शेयर करें aure like 
+                            <i class="fab fa-whatsapp"></i> शेयर करें और लाइक करें
                         </button>
                         <button class="action-btn join-btn" id="join-btn">
                             <i class="fas fa-trophy"></i> Join contest for free
@@ -67,55 +63,17 @@
         <h2 class="prize-title">इनाम राशि</h2>
         <table class="prize-table">
             <thead>
-                <tr>
-                    <th>रैंक</th>
-                    <th>इनाम</th>
-                    <th>विजेता</th>
-                </tr>
+                <tr><th>रैंक</th><th>इनाम</th><th>विजेता</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>पहला</td>
-                    <td>₹3,00,000</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>दूसरा</td>
-                    <td>₹50,000</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>तीसरा</td>
-                    <td>₹11,000</td>
-                    <td>14</td>
-                </tr>
-                <tr>
-                    <td>चौथा</td>
-                    <td>₹5,000</td>
-                    <td>35</td>
-                </tr>
-                <tr>
-                    <td>5 से 5004</td>
-                    <td>₹501</td>
-                    <td>5,000</td>
-                </tr>
+                <tr><td>पहला</td><td>₹3,00,000</td><td>1</td></tr>
+                <tr><td>दूसरा</td><td>₹50,000</td><td>5</td></tr>
+                <tr><td>तीसरा</td><td>₹11,000</td><td>14</td></tr>
+                <tr><td>चौथा</td><td>₹5,000</td><td>35</td></tr>
+                <tr><td>5 से 5004</td><td>₹501</td><td>5,000</td></tr>
             </tbody>
         </table>
     </section>
-
-<div class="ad-container">
-    <!-- Evadav Push Notification Ad Zone -->
-    <script>
-        (function(a){
-            let b = new URLSearchParams(location.search).get('click_id');
-            b = null !== b && '' !== b ? '&click_id=' + b : '';
-            let c = a.createElement('script');
-            c.async = true;
-            c.src = 'https://puabvo.com/code/native.js?h=waWQiOjExOTg0MDIsInNpZCI6MTQ3MTI5MSwid2lkIjo3MDcyNDksInNyYyI6Mn0=eyJ' + b;
-            a.head.appendChild(c);
-        })(document);
-    </script>
-</div>
     
     <div class="modal" id="notification-modal">
         <div class="modal-content">
@@ -144,10 +102,9 @@
         const prizePool = [
             { rank: "तीसरा", amount: "₹11,000" },
             { rank: "चौथा", amount: "₹5,000" },
-            { rank: "5 से 5004 ", amount: "₹501", minRank: 5, maxRank: 5004 }
+            { rank: "5 से 5004", amount: "₹501", minRank: 5, maxRank: 5004 }
         ];
 
-        // Initial setup
         const urlParams = new URLSearchParams(window.location.search);
         const submittedName = urlParams.get('name') || localStorage.getItem('submittedName') || 'User';
         const teamId = urlParams.get('team') || localStorage.getItem('selectedTeam');
@@ -163,44 +120,27 @@
         const notificationKey = `notify_${deviceId}`;
         const prizeKey = `prize_${deviceId}`;
 
-        // Get or set random prize for the user
         let userPrize = JSON.parse(localStorage.getItem(prizeKey));
         if (!userPrize) {
             if (prizeRank && prizeAmount) {
                 userPrize = { rank: prizeRank, amount: prizeAmount };
-                if (prizeRank === "5 से 5004") {
-                    const randomRank = Math.floor(Math.random() * (5004 - 5 + 1)) + 5;
-                    userPrize.displayRank = `${randomRank}वां`;
-                } else {
-                    userPrize.displayRank = prizeRank;
-                }
+                userPrize.displayRank = prizeRank === "5 से 5004" ? `${Math.floor(Math.random() * (5004 - 5 + 1)) + 5}वां` : prizeRank;
             } else {
                 const randomIndex = Math.floor(Math.random() * prizePool.length);
                 userPrize = { ...prizePool[randomIndex] };
-                if (userPrize.rank === "5 से 5004") {
-                    const randomRank = Math.floor(Math.random() * (userPrize.maxRank - userPrize.minRank + 1)) + userPrize.minRank;
-                    userPrize.displayRank = `${randomRank}वां`;
-                } else {
-                    userPrize.displayRank = userPrize.rank;
-                }
+                userPrize.displayRank = userPrize.rank === "5 से 5004" ? `${Math.floor(Math.random() * (userPrize.maxRank - userPrize.minRank + 1)) + userPrize.minRank}वां` : userPrize.rank;
             }
             localStorage.setItem(prizeKey, JSON.stringify(userPrize));
         }
 
-        // DOM updates
         document.getElementById('display-name').textContent = decodeURIComponent(submittedName);
-        document.getElementById('display-name-desc').textContent = decodeURIComponent(submittedName);
         document.getElementById('display-score').textContent = scorePrediction;
-
-        const prizeText = document.getElementById('dynamic-description');
-        prizeText.innerHTML = `"<span class='user-name-desc' id='display-name-desc'>${decodeURIComponent(submittedName)}</span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"`;
+        document.getElementById('dynamic-description').innerHTML = `"<span class='user-name-desc'>${decodeURIComponent(submittedName)}</span> ${userPrize.displayRank} इनाम (${userPrize.amount}) जीतने के बहुत करीब हैं। अपने दोस्तों और सोशल मीडिया पर अपनी प्रेडिक्शन शेयर करें और जितने ज्यादा लाइक्स जुटा सकते हैं, जुटाएं। आपकी मेहनत आपको इनाम की ओर ले जाएगी!"`;
 
         const playerIconsContainer = document.getElementById('player-icons');
         if (teamId) {
             const team = teamData.find(t => t.id === teamId);
-            if (team) {
-                playerIconsContainer.innerHTML = `<img src="${team.image}" alt="${team.name}" title="${team.name}">`;
-            }
+            if (team) playerIconsContainer.innerHTML = `<img src="${team.image}" alt="${team.name}" title="${team.name}">`;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -224,9 +164,7 @@
                 const progressPercentage = Math.min((likeCount / maxLikes) * 100, 100);
                 progressFill.style.width = `${progressPercentage}%`;
                 progressText.textContent = `प्रोग्रेस: ${likeCount}/${maxLikes} लाइक्स`;
-                eligibilityMessage.textContent = likeCount < maxLikes 
-                    ? `अपने दोस्तों के साथ शेयर करें और जल्दी से 30 लाइक्स हासिल करें!` 
-                    : "बधाई हो! जीत के लिए योग्य!";
+                eligibilityMessage.textContent = likeCount < maxLikes ? "अपने दोस्तों के साथ शेयर करें और जल्दी से 30 लाइक्स हासिल करें!" : "बधाई हो! जीत के लिए योग्य!";
                 eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
             };
 
@@ -234,9 +172,7 @@
                 const isSubscribed = localStorage.getItem(notificationKey) === 'true';
                 [notifyBtn, modalNotifyBtn].forEach(btn => {
                     btn.classList.toggle('subscribed', isSubscribed);
-                    btn.innerHTML = isSubscribed 
-                        ? '<i class="fas fa-bell"></i> नोटिफिकेशन चालू है'
-                        : '<i class="fas fa-bell"></i> नोटिफिकेशन चालू करें';
+                    btn.innerHTML = isSubscribed ? '<i class="fas fa-bell"></i> नोटिफिकेशन चालू है' : '<i class="fas fa-bell"></i> नोटिफिकेशन चालू करें';
                     btn.disabled = isSubscribed;
                 });
             };
@@ -246,12 +182,10 @@
                     alert('नोटिफिकेशन पहले से चालू हैं।');
                     return;
                 }
-
                 if (!('Notification' in window)) {
                     alert('यह ब्राउज़र नोटिफिकेशन समर्थन नहीं करता।');
                     return;
                 }
-
                 try {
                     const permission = await Notification.requestPermission();
                     if (permission === 'granted') {
@@ -276,7 +210,7 @@
                     setTimeout(() => {
                         modal.style.display = 'flex';
                         closeModalBtn.style.display = 'block';
-                    }, 2000);
+                    }, 2000); // Modal appears after 2 seconds
                 }
             };
 
@@ -299,12 +233,8 @@
             });
 
             notifyBtn.addEventListener('click', () => {
-                if (localStorage.getItem(notificationKey) !== 'true') {
-                    modal.style.display = 'flex';
-                    closeModalBtn.style.display = 'block';
-                } else {
-                    alert('नोटिफिकेशन पहले से चालू हैं।');
-                }
+                modal.style.display = 'flex';
+                closeModalBtn.style.display = 'block';
             });
 
             modalNotifyBtn.addEventListener('click', handleNotificationSubscription);
@@ -312,17 +242,16 @@
 
             shareBtn.addEventListener('click', () => {
                 const team = teamData.find(t => t.id === teamId);
-                const shareUrl = `${window.location.origin}/card.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
+                const shareUrl = `${window.location.origin}/userCard.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
                 const shareText = `${decodeURIComponent(submittedName)} ने ${team?.name || ''} को चुना! अभी ${likeCount} लाइक्स हैं। ${userPrize.displayRank} इनाम (${userPrize.amount}) जितने का मौका: ${shareUrl}`;
                 window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             });
 
             joinBtn.addEventListener('click', () => window.location.href = 'index.html');
 
-            // Initialize
             initializeLikeButton();
             updateNotificationButton();
-            showModal();
+            showModal(); // Call the function to show modal after 2 seconds
         });
     </script>
 </body>
