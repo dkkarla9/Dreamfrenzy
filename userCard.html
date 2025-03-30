@@ -39,7 +39,7 @@
                             <div class="progress-fill" id="progress-fill"></div>
                         </div>
                         <p class="progress-text" id="progress-text">प्रोग्रेस: 0/30 लाइक्स</p>
-                        <p class="eligibility-message" id="eligibility-message">अगर आप भी इस कॉन्टेस्ट में हिस्सा लेकर <span id="display-name"> की तरह Reward पाना चाहते हैं तो अभी कॉन्टेस्ट जॉइन करें।</p>
+                        <p class="eligibility-message">अगर आप भी इस कॉन्टेस्ट में हिस्सा लेकर <span id="display-name"> की तरह Reward पाना चाहते हैं तो अभी कॉन्टेस्ट जॉइन करें।</p>
                     </div>
                     <div class="highlight-buttons">
                         <button class="action-btn share-btn" id="share-btn">
@@ -55,7 +55,7 @@
     </div>
 
     <section class="prize-distribution">
-        <h2 class="prize-title">इनाम राशि</h2>
+        <h2 class="prize-title">Winninf Amount</h2>
         <table class="prize-table">
             <thead>
                 <tr><th>रैंक</th><th>इनाम</th><th>विजेता</th></tr>
@@ -142,7 +142,7 @@
                 const progressPercentage = Math.min((likeCount / maxLikes) * 100, 100);
                 progressFill.style.width = `${progressPercentage}%`;
                 progressText.textContent = `प्रोग्रेस: ${likeCount}/${maxLikes} लाइक्स`;
-                eligibilityMessage.textContent = likeCount < maxLikes ? "दोस्तों के साथ शेयर करें और 30 लाइक्स जल्दी हासिल करें!" : "बधाई हो! जीत के लिए योग्य!";
+                eligibilityMessage.textContent = likeCount < maxLikes ? "<span id="display-name">" : "बधाई हो! जीत के लिए योग्य!";
                 eligibilityMessage.style.color = likeCount < maxLikes ? '#ff4444' : '#00a651';
             };
 
