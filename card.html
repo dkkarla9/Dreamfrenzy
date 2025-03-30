@@ -194,11 +194,9 @@
 
             const handleNotificationSubscription = async () => {
                 if (localStorage.getItem(notificationKey) === 'true') {
-                    alert('नोटिफिकेशन पहले से चालू हैं।');
                     return;
                 }
                 if (!('Notification' in window)) {
-                    alert('यह ब्राउज़र नोटिफिकेशन समर्थन नहीं करता।');
                     return;
                 }
                 try {
@@ -211,12 +209,9 @@
                             body: 'अब आपको जीत की सूचना मिलेगी।',
                             icon: 'https://cdnflags.dream11.com/d11-static-pages/images/dream11LogoWhite.webp'
                         });
-                    } else {
-                        alert('नोटिफिकेशन की परमिशन दें!');
                     }
                 } catch (err) {
                     console.error("Notification error:", err);
-                    alert('नोटिफिकेशन चालू करने में त्रुटि।');
                 }
             };
 
