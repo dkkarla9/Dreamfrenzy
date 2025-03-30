@@ -167,8 +167,8 @@
             shareBtn.addEventListener('click', () => {
                 const team = teamData.find(t => t.id === teamId);
                 const shareUrl = `${window.location.origin}/userCard.html?team=${teamId}&name=${encodeURIComponent(submittedName)}&score=${scorePrediction}&likes=${likeCount}&prizeRank=${encodeURIComponent(userPrize.rank)}&prizeAmount=${encodeURIComponent(userPrize.amount)}`;
-                const shareText = `${Dream Frenzy के इस कॉन्टेस्ट में decodeURIComponent(submittedName)} को ${userPrize.displayRank} विनिंग अमाउंट (${userPrize.amount}) जीतने का मौका मिल सकता है, क्योंकि उन्होंने${team?.name || ''} को चुना! उनकी टीम को सपोर्ट करने के लिए उनकी टीम को लाइक करें) जितने का मौका: ${shareUrl}`;
-                window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+                 const shareText = `Dream Frenzy के इस कॉन्टेस्ट में ${decodeURIComponent(submittedName)} को ${userPrize.displayRank} विनिंग अमाउंट (${userPrize.amount}) जीतने का मौका मिल सकता है, क्योंकि उन्होंने ${team?.name || ''} को चुना! उनकी टीम को सपोर्ट करने के लिए उनकी टीम को लाइक करें। जितने का मौका: ${shareUrl}`;
+               window.location.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             });
 
             joinBtn.addEventListener('click', () => window.location.href = 'index.html');
